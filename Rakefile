@@ -19,9 +19,11 @@ namespace :build do
   task :c => [C_EXECUTABLE_NAME]
 
   namespace :debug do
-    desc 'Builds the test run executable using the c implementations with debug info.'
+    desc 'Builds the test run executable using the c implementations ' +
+         'with debug info.'
     task :c => [:set_debug_compile_flags, C_EXECUTABLE_NAME]
 
+    # TODO: Is there a better way to accomplish this?
     task :set_debug_compile_flags do
       $compile_flags = '-c -g'
     end
