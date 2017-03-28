@@ -1,33 +1,51 @@
 #include <stdio.h>
 
-#include "linked_list.h"
+#include "stack.h"
 
-void PrintIntListValue(void* value)
+void PrintIntValue(void* value)
 {
     printf("%d ", *((int*)value));
 }
 
-void PrintIntList(ListNode* node)
+void PrintIntStack(Stack* stack)
 {
-    ListEach(node, PrintIntListValue);
+    StackEach(stack, PrintIntValue);
     printf("\n");
 }
 
 int main() 
 {
+    Stack* stack = StackCreate();
+    PrintIntStack(stack);
+
     int val = 1;
-    ListNode* listHead = ListCreate(&val);
+    StackPush(stack, &val);
+    PrintIntStack(stack);
 
     int val2 = 2;
-    listHead = ListPrepend(listHead, &val2);
+    StackPush(stack, &val2);
+    PrintIntStack(stack);
 
     int val3 = 3;
-    listHead = ListPrepend(listHead, &val3);
+    StackPush(stack, &val3);
+    PrintIntStack(stack);
 
-    PrintIntList(listHead);
+    printf("popped: %d\n", *(int*) StackPop(stack));
+    PrintIntStack(stack);
 
-    listHead = ListReverse(listHead);
-    PrintIntList(listHead);
+    printf("popped: %d\n", *(int*) StackPop(stack));
+    PrintIntStack(stack);
+
+    printf("popped: %d\n", *(int*) StackPop(stack));
+    PrintIntStack(stack);
+
+    StackPop(stack);
+
+    StackPush(stack, &val);
+    PrintIntStack(stack);
+
+    printf("popped: %d\n", *(int*) StackPop(stack));
+    PrintIntStack(stack);
 
     return 0;
 }
