@@ -2,36 +2,45 @@
 
 #include "linked_list.h"
 
-ListNode* _ListReverse(ListNode* node, ListNode** head);
+ListNode* _ListReverse(ListNode* listHead, ListNode** head);
 
 ListNode* ListCreate(void* value)
 {
-    ListNode* node = calloc(1, sizeof(ListNode));
-    node->value = value;
-    return node;
+    ListNode* listHead = calloc(1, sizeof(ListNode));
+    listHead->value = value;
+    return listHead;
 }
 
-ListNode* ListPrepend(ListNode* node, void* value) {
-    ListNode* new = ListCreate(value);
-    new->next = node;
-    return new;
+ListNode* ListPrepend(ListNode* listHead, void* value) 
+{
+    ListNode* newListHead = ListCreate(value);
+    newListHead->next = listHead;
+    return newListHead;
 }
 
-ListNode* ListFind(ListNode* node, void* value)
+ListNode* ListInsertAfter(ListNode* node, void* value) 
+{
+    ListNode* newNode = ListCreate(value);
+    newNode->next = node->next;
+    node->next = newNode;
+    return newNode;
+}
+
+ListNode* ListFind(ListNode* listHead, void* value)
 {
     ListNode* cursor;
-    for (cursor = node; cursor != NULL; cursor = cursor->next)
+    for (cursor = listHead; cursor != NULL; cursor = cursor->next)
         if (cursor->value == value) return cursor;
 
     return NULL;
 }
 
-ListNode* ListRemove(ListNode* node, void* value)
+ListNode* ListRemove(ListNode* listHead, void* value)
 {
-    ListNode** prevNextPtr = &node;
+    ListNode** prevNextPtr = &listHead;
     ListNode* cursor;
 
-    for (cursor = node; cursor != NULL; cursor = cursor->next) {
+    for (cursor = listHead; cursor != NULL; cursor = cursor->next) {
         if (cursor->value == value) {
             *prevNextPtr = cursor->next;
             free(cursor);
@@ -41,29 +50,29 @@ ListNode* ListRemove(ListNode* node, void* value)
         prevNextPtr = &cursor->next;
     }
 
-    return (node != NULL) ? node : *prevNextPtr;
+    return (listHead != NULL) ? listHead : *prevNextPtr;
 }
 
-ListNode* ListReverse(ListNode* node)
+ListNode* ListReverse(ListNode* listHead)
 {
-    ListNode* head = NULL;
+    ListNode* newListHead = NULL;
 
-    if (node != NULL)
-        _ListReverse(node, &head);
+    if (listHead != NULL)
+        _ListReverse(listHead, &newListHead);
 
-    return head;
+    return newListHead;
 }
 
-ListNode* _ListReverse(ListNode* node, ListNode** head)
+ListNode* _ListReverse(ListNode* node, ListNode** listHead)
 {
     // Base case. No next node.
     if (node->next == NULL) {
-        *head = node;
+        *listHead = node;
         return node;
     }
 
     // Recursive case. Put this node at the end of the reversed list.
-    ListNode* end = _ListReverse(node->next, head);
+    ListNode* end = _ListReverse(node->next, listHead);
     end->next = node;
     node->next = NULL;
 

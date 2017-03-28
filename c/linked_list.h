@@ -11,16 +11,19 @@ typedef void (*ListYieldFunc)(void* value);
 ListNode* ListCreate(void* value);
 
 // Returns the new list head.
-ListNode* ListPrepend(ListNode* node, void* value);
+ListNode* ListPrepend(ListNode* listHead, void* value);
 
-ListNode* ListFind(ListNode* node, void* value);
+// Inserts the value immediately after the given node. Returns the new node.
+ListNode* ListInsertAfter(ListNode* node, void* value);
+
+ListNode* ListFind(ListNode* listHead, void* value);
 
 // Returns the (possibly new) list head.
-ListNode* ListRemove(ListNode* node, void* value);
+ListNode* ListRemove(ListNode* listHead, void* value);
 
 // Returns the new list head.
-ListNode* ListReverse(ListNode* node);
+ListNode* ListReverse(ListNode* listHead);
 
-void ListEach(ListNode* node, ListYieldFunc yieldFunc);
+void ListEach(ListNode* listHead, ListYieldFunc yieldFunc);
 
 #endif
