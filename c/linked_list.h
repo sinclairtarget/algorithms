@@ -6,7 +6,7 @@ typedef struct ListNode {
     void* value;
 } ListNode;
 
-typedef void (*ListYieldFunc)(ListNode* node);
+typedef void (*ListYieldFunc)(void* value);
 
 ListNode* ListCreate(void* value);
 
@@ -16,8 +16,8 @@ ListNode* ListFind(ListNode* node, void* value);
 
 ListNode* ListRemove(ListNode* node, void* value);
 
-void ListEach(ListNode* node, ListYieldFunc yieldFunc);
-
 ListNode* ListReverse(ListNode* node);
+
+void ListEach(ListNode* node, ListYieldFunc yieldFunc);
 
 #endif

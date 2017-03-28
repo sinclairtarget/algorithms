@@ -2,9 +2,9 @@
 
 #include "linked_list.h"
 
-void PrintIntListValue(ListNode* node)
+void PrintIntListValue(void* value)
 {
-    printf("%d ", *((int*)node->value));
+    printf("%d ", *((int*)value));
 }
 
 void PrintIntList(ListNode* node)

@@ -44,14 +44,6 @@ ListNode* ListRemove(ListNode* node, void* value)
     return (node != NULL) ? node : *prevNextPtr;
 }
 
-void ListEach(ListNode* node, ListYieldFunc yieldFunc)
-{
-    ListNode* cursor;
-    for (cursor = node; cursor != NULL; cursor = cursor->next) {
-        yieldFunc(cursor);
-    }
-}
-
 ListNode* ListReverse(ListNode* node)
 {
     ListNode* head = NULL;
@@ -76,4 +68,12 @@ ListNode* _ListReverse(ListNode* node, ListNode** head)
     node->next = NULL;
 
     return node;
+}
+
+void ListEach(ListNode* node, ListYieldFunc yieldFunc)
+{
+    ListNode* cursor;
+    for (cursor = node; cursor != NULL; cursor = cursor->next) {
+        yieldFunc(cursor->value);
+    }
 }
