@@ -1,51 +1,51 @@
 #include <stdio.h>
 
-#include "stack.h"
+#include "queue.h"
 
 void PrintIntValue(void* value)
 {
     printf("%d ", *((int*)value));
 }
 
-void PrintIntStack(Stack* stack)
+void PrintIntQueue(Queue* queue)
 {
-    StackEach(stack, PrintIntValue);
+    QueueEach(queue, PrintIntValue);
     printf("\n");
 }
 
 int main() 
 {
-    Stack* stack = StackCreate();
-    PrintIntStack(stack);
+    Queue* queue = QueueCreate();
+    PrintIntQueue(queue);
 
     int val = 1;
-    StackPush(stack, &val);
-    PrintIntStack(stack);
+    QueueEnqueue(queue, &val);
+    PrintIntQueue(queue);
 
     int val2 = 2;
-    StackPush(stack, &val2);
-    PrintIntStack(stack);
+    QueueEnqueue(queue, &val2);
+    PrintIntQueue(queue);
 
     int val3 = 3;
-    StackPush(stack, &val3);
-    PrintIntStack(stack);
+    QueueEnqueue(queue, &val3);
+    PrintIntQueue(queue);
 
-    printf("popped: %d\n", *(int*) StackPop(stack));
-    PrintIntStack(stack);
+    printf("dequeued: %d\n", *(int*) QueueDequeue(queue));
+    PrintIntQueue(queue);
 
-    printf("popped: %d\n", *(int*) StackPop(stack));
-    PrintIntStack(stack);
+    printf("dequeued: %d\n", *(int*) QueueDequeue(queue));
+    PrintIntQueue(queue);
 
-    printf("popped: %d\n", *(int*) StackPop(stack));
-    PrintIntStack(stack);
+    printf("dequeued: %d\n", *(int*) QueueDequeue(queue));
+    PrintIntQueue(queue);
 
-    StackPop(stack);
+    QueueDequeue(queue);
 
-    StackPush(stack, &val);
-    PrintIntStack(stack);
+    QueueEnqueue(queue, &val);
+    PrintIntQueue(queue);
 
-    printf("popped: %d\n", *(int*) StackPop(stack));
-    PrintIntStack(stack);
+    printf("dequeued: %d\n", *(int*) QueueDequeue(queue));
+    PrintIntQueue(queue);
 
     return 0;
 }
