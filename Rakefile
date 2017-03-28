@@ -12,21 +12,19 @@ CPP_SOURCE_FILES = FileList["#{CPP_SOURCE_DIRECTORY}/**/*.c",
 
 $compile_flags = '-c'
 
-task :default => ['build:c']
+task :default => ['c']
 
-namespace :build do
-  desc 'Builds the test run executable using the c implementations.'
-  task :c => [C_EXECUTABLE_NAME]
+desc 'Builds the test run executable using the c implementations.'
+task :c => [C_EXECUTABLE_NAME]
 
-  namespace :debug do
-    desc 'Builds the test run executable using the c implementations ' +
-         'with debug info.'
-    task :c => [:set_debug_compile_flags, C_EXECUTABLE_NAME]
+namespace :debug do
+  desc 'Builds the test run executable using the c implementations ' +
+       'with debug info.'
+  task :c => [:set_debug_compile_flags, C_EXECUTABLE_NAME]
 
-    # TODO: Is there a better way to accomplish this?
-    task :set_debug_compile_flags do
-      $compile_flags = '-c -g'
-    end
+  # TODO: Is there a better way to accomplish this?
+  task :set_debug_compile_flags do
+    $compile_flags = '-c -g'
   end
 end
 
