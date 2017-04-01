@@ -12,15 +12,22 @@ CPP_SOURCE_FILES = FileList["#{CPP_SOURCE_DIRECTORY}/**/*.c",
 
 $compile_flags = '-c'
 
-task :default => ['c']
+task :default => ['c', 'cpp']
 
 desc 'Builds the test run executable using the c implementations.'
 task :c => [C_EXECUTABLE_NAME]
+
+desc 'Builds the test run executable using the c++ implementations.'
+task :cpp => [CPP_EXECUTABLE_NAME]
 
 namespace :debug do
   desc 'Builds the test run executable using the c implementations ' +
        'with debug info.'
   task :c => [:set_debug_compile_flags, C_EXECUTABLE_NAME]
+
+  desc 'Builds the test run executable using the cpp implementations ' +
+       'with debug info.'
+  task :cpp => [:set_debug_compile_flags, CPP_EXECUTABLE_NAME]
 
   # TODO: Is there a better way to accomplish this?
   task :set_debug_compile_flags do
@@ -32,6 +39,11 @@ file C_EXECUTABLE_NAME => C_SOURCE_FILES.ext('.o') do |t|
   sh "clang -o #{t.name} #{t.prerequisites.join(' ')}"
 end
 CLEAN.include(C_SOURCE_FILES.ext('.o'))
+
+file CPP_EXECUTABLE_NAME => CPP_SOURCE_FILES.ext('.o') do |t|
+  sh "clang++ -o #{t.name} #{t.prerequisites.join(' ')}"
+end
+CLEAN.include(CPP_SOURCE_FILES.ext('.o'))
 
 # Uses clang to determine the dependencies of a source file.
 # Returns an array of file names.
@@ -53,4 +65,9 @@ rule '.o' => ['.c', *(-> (task_name) { file_deps(task_name, '.c') })] do |t|
   sh "clang #{$compile_flags} #{t.source} -o #{t.name}"
 end
 
+rule '.o' => ['.cpp', *(-> (task_name) { file_deps(task_name, '.c') })] do |t|
+  sh "clang++ #{$compile_flags} #{t.source} -o #{t.name}"
+end
+
 CLOBBER.include(C_EXECUTABLE_NAME)
+CLOBBER.include(CPP_EXECUTABLE_NAME)
