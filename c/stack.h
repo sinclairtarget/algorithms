@@ -1,5 +1,5 @@
-#ifndef __STACK_H__
-#define __STACK_H__
+#ifndef STACK_H
+#define STACK_H
 
 #include "linked_list.h"
 
