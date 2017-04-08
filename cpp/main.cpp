@@ -2,8 +2,8 @@
 #include <vector>
 #include <string>
 
-#include "linked_list.h"
-#include "linked_list.cpp"
+#include "stack.h"
+#include "stack.cpp"
 
 using std::vector;
 using std::cout;
@@ -12,15 +12,28 @@ using std::string;
 
 int main()
 {
-    ListNode<int>* listHead = new ListNode<int>(23);
-    listHead = listHead->Prepend(21);
-    cout << listHead->ListToString() << endl;
+    Stack<int> stack;
 
-    listHead->InsertAfter(22);
-    cout << listHead->ListToString() << endl;
+    stack.Push(1);
+    cout << stack.ToString() << endl;
 
-    listHead = listHead->Reverse();
-    cout << listHead->ListToString() << endl;
+    stack.Push(2);
+    cout << stack.ToString() << endl;
+
+    stack.Push(3);
+    cout << stack.ToString() << endl;
+
+    int popped = stack.Pop();
+    cout << popped << endl;
+    cout << stack.ToString() << endl;
+
+    popped = stack.Pop();
+    cout << popped << endl;
+    cout << stack.ToString() << endl;
+
+    popped = stack.Pop();
+    cout << popped << endl;
+    cout << stack.ToString() << endl;
 
     return 0;
 }
