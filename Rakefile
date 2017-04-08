@@ -45,7 +45,7 @@ file CPP_EXECUTABLE_NAME => CPP_SOURCE_FILES.ext('.o') do |t|
 end
 CLEAN.include(CPP_SOURCE_FILES.ext('.o'))
 
-# Uses clang to determine the dependencies of a source file.
+# Uses clang to determine the header dependencies of a source file.
 # Returns an array of file names.
 def file_deps(task_name, file_ext)
   source_file_name = task_name.ext(file_ext)
@@ -57,6 +57,8 @@ def file_deps(task_name, file_ext)
   # Clang dependency file format example:
   # triangle.o: triangle.c triangle.h \
   #   math_utils.h
+  #
+  # We're only interested in the header files.
   out.split(':').last.split
      .reject { |e| e == '\\' || e == source_file_name }
 end
@@ -65,7 +67,7 @@ rule '.o' => ['.c', *(-> (task_name) { file_deps(task_name, '.c') })] do |t|
   sh "clang #{$compile_flags} #{t.source} -o #{t.name}"
 end
 
-rule '.o' => ['.cpp', *(-> (task_name) { file_deps(task_name, '.c') })] do |t|
+rule '.o' => ['.cpp', *(-> (task_name) { file_deps(task_name, '.cpp') })] do |t|
   sh "clang++ #{$compile_flags} #{t.source} -o #{t.name}"
 end
 
