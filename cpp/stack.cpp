@@ -1,4 +1,5 @@
 #include "stack.h"
+#include "linked_list.cpp"
 
 template <typename T>
 void Stack<T>::Push(T val)

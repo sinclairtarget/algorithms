@@ -2,7 +2,6 @@
 #define STACK_H
 
 #include "linked_list.h"
-#include "linked_list.cpp"
 
 template <typename T>
 class Stack
