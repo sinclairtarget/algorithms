@@ -12,7 +12,7 @@ CPP_SOURCE_FILES = FileList["#{CPP_SOURCE_DIRECTORY}/**/*.c",
 
 $compile_flags = '-c'
 
-task :default => ['c', 'cpp']
+task :default => ['cpp']
 
 desc 'Builds the test run executable using the c implementations.'
 task :c => [C_EXECUTABLE_NAME]
