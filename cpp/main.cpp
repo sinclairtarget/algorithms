@@ -2,8 +2,8 @@
 #include <vector>
 #include <string>
 
-#include "stack.h"
-#include "stack.cpp"
+#include "queue.h"
+#include "queue.cpp"
 
 using std::vector;
 using std::cout;
@@ -12,28 +12,27 @@ using std::string;
 
 int main()
 {
-    Stack<int> stack;
+    Queue<int> queue;
+    queue.Enqueue(1);
+    cout << queue.ToString() << endl;
 
-    stack.Push(1);
-    cout << stack.ToString() << endl;
+    queue.Enqueue(2);
+    cout << queue.ToString() << endl;
 
-    stack.Push(2);
-    cout << stack.ToString() << endl;
+    queue.Enqueue(3);
+    cout << queue.ToString() << endl;
 
-    stack.Push(3);
-    cout << stack.ToString() << endl;
+    int dequeued = queue.Dequeue();
+    cout << dequeued << endl;
+    cout << queue.ToString() << endl;
 
-    int popped = stack.Pop();
-    cout << popped << endl;
-    cout << stack.ToString() << endl;
+    dequeued = queue.Dequeue();
+    cout << dequeued << endl;
+    cout << queue.ToString() << endl;
 
-    popped = stack.Pop();
-    cout << popped << endl;
-    cout << stack.ToString() << endl;
-
-    popped = stack.Pop();
-    cout << popped << endl;
-    cout << stack.ToString() << endl;
+    dequeued = queue.Dequeue();
+    cout << dequeued << endl;
+    cout << queue.ToString() << endl;
 
     return 0;
 }
