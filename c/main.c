@@ -1,51 +1,46 @@
 #include <stdio.h>
 
-#include "queue.h"
+#include "bst.h"
+#include "string.h"
 
-void PrintIntValue(void* value)
+void PrintNodeValue(int value, int depth)
 {
-    printf("%d ", *((int*)value));
-}
+    char out[depth + 100];
+    for (int i = 0; i < depth; i++)
+        out[i] = ' ';
 
-void PrintIntQueue(Queue* queue)
-{
-    QueueEach(queue, PrintIntValue);
-    printf("\n");
+    out[depth] = '\0';
+
+    strcat(out, "%d\n");
+
+    printf(out, value);
 }
 
 int main() 
 {
-    Queue* queue = QueueCreate();
-    PrintIntQueue(queue);
+    BinaryTreeNode* root = BinaryTreeCreate(5);
 
-    int val = 1;
-    QueueEnqueue(queue, &val);
-    PrintIntQueue(queue);
+    BinaryTreeInsert(root, 6);
+    BinaryTreeInsert(root, 4);
+    BinaryTreeInsert(root, 2);
+    BinaryTreeInsert(root, 1);
+    BinaryTreeInsert(root, 8);
+    BinaryTreeInsert(root, 7);
+    BinaryTreeInsert(root, 3);
 
-    int val2 = 2;
-    QueueEnqueue(queue, &val2);
-    PrintIntQueue(queue);
+    BinaryTreeEach(root, REVORDER, PrintNodeValue);
 
-    int val3 = 3;
-    QueueEnqueue(queue, &val3);
-    PrintIntQueue(queue);
+    BinaryTreeNode* found = BinaryTreeFind(root, 6);
+    printf("found: %d\n", found->value);
 
-    printf("dequeued: %d\n", *(int*) QueueDequeue(queue));
-    PrintIntQueue(queue);
+    BinaryTreeNode* min = BinaryTreeMin(root);
+    printf("min: %d\n", min->value);
 
-    printf("dequeued: %d\n", *(int*) QueueDequeue(queue));
-    PrintIntQueue(queue);
+    BinaryTreeNode* max = BinaryTreeMax(root);
+    printf("max: %d\n", max->value);
 
-    printf("dequeued: %d\n", *(int*) QueueDequeue(queue));
-    PrintIntQueue(queue);
-
-    QueueDequeue(queue);
-
-    QueueEnqueue(queue, &val);
-    PrintIntQueue(queue);
-
-    printf("dequeued: %d\n", *(int*) QueueDequeue(queue));
-    PrintIntQueue(queue);
+    root = BinaryTreeRemove(root, 2);
+    BinaryTreeEach(root, REVORDER, PrintNodeValue);
 
     return 0;
 }
