@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "bst.h"
+#include "avl_bst.h"
 #include "string.h"
 
-void PrintNodeValue(int value, int depth)
+void PrintNode(AVLTreeNode* node, int depth)
 {
     char out[depth + 100];
     for (int i = 0; i < depth; i++)
@@ -13,34 +13,22 @@ void PrintNodeValue(int value, int depth)
 
     strcat(out, "%d\n");
 
-    printf(out, value);
+    printf(out, node->value);
 }
 
 int main() 
 {
-    BinaryTreeNode* root = BinaryTreeCreate(5);
+    AVLTreeNode* root = AVLTreeCreate(4);
 
-    BinaryTreeInsert(root, 6);
-    BinaryTreeInsert(root, 4);
-    BinaryTreeInsert(root, 2);
-    BinaryTreeInsert(root, 1);
-    BinaryTreeInsert(root, 8);
-    BinaryTreeInsert(root, 7);
-    BinaryTreeInsert(root, 3);
+    root = AVLTreeInsert(root, 6);
+    root = AVLTreeInsert(root, 5);
+    root = AVLTreeInsert(root, 7);
+    root = AVLTreeInsert(root, 8);
+    root = AVLTreeInsert(root, 9);
+    root = AVLTreeInsert(root, 2);
+    root = AVLTreeInsert(root, 3);
 
-    BinaryTreeEach(root, REVORDER, PrintNodeValue);
-
-    BinaryTreeNode* found = BinaryTreeFind(root, 6);
-    printf("found: %d\n", found->value);
-
-    BinaryTreeNode* min = BinaryTreeMin(root);
-    printf("min: %d\n", min->value);
-
-    BinaryTreeNode* max = BinaryTreeMax(root);
-    printf("max: %d\n", max->value);
-
-    root = BinaryTreeRemove(root, 2);
-    BinaryTreeEach(root, REVORDER, PrintNodeValue);
+    AVLTreeEach(root, REVORDER, PrintNode);
 
     return 0;
 }
