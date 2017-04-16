@@ -4,6 +4,13 @@
 #include "stdbool.h"
 
 // AVL Balanced Binary Search Tree that stores integers.
+//
+// AVL trees enforce a "balance condition" to ensure that operations on the
+// tree have O(log(n)) complexity even over sorted inputs.
+//
+// Maintanance to ensure that the tree conforms to the balance conditions is
+// done on each insert and remove. Each node keeps track of the height of its
+// deepest subtree.
 typedef struct AVLTreeNode {
     struct AVLTreeNode* left;
     struct AVLTreeNode* right;
