@@ -4,6 +4,21 @@
 #include "stdbool.h"
 
 // Splay tree containing integers.
+//
+// Splay trees are similar to AVL trees in that they improve on vanilla BSTs by
+// ensuring that sorted inputs don't result in O(n) operations and terrible
+// performance. But whereas AVL trees guarantee that no operation takes more
+// than O(log n) in the worst case, splay trees only guarantee that the
+// amortized complexity will be no more than O(log n), even if an individual
+// operation could take as long as O(n).
+//
+// Splay trees do not need to store height information with each node. They
+// also make recently accessed nodes quicker to access. The tree is usually
+// rebalanced with each access; the accessed node is rotated to the root. AVL
+// trees are only rebalanced on insertion or deletion.
+//
+// Awesome splay tree visualization: 
+// https://www.cs.usfca.edu/~galles/visualization/SplayTree.html
 typedef struct SplayTreeNode {
     struct SplayTreeNode* left;
     struct SplayTreeNode* right;

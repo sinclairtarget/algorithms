@@ -11,6 +11,9 @@
 // Maintanance to ensure that the tree conforms to the balance conditions is
 // done on each insert and remove. Each node keeps track of the height of its
 // deepest subtree.
+//
+// Typically the balance condition is that no node's left subtree can be more
+// than one level deeper than its right subtree (and vice versa).
 typedef struct AVLTreeNode {
     struct AVLTreeNode* left;
     struct AVLTreeNode* right;
