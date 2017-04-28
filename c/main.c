@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "avl_bst.h"
+#include "splay_bst.h"
 #include "string.h"
 
-void PrintNode(AVLTreeNode* node, int depth)
+void PrintNode(SplayTreeNode* node, int depth)
 {
     char out[depth + 100];
     for (int i = 0; i < depth; i++)
@@ -18,17 +18,17 @@ void PrintNode(AVLTreeNode* node, int depth)
 
 int main() 
 {
-    AVLTreeNode* root = AVLTreeCreate(4);
+    SplayTreeNode* root = SplayTreeCreate(4);
+    
+    SplayTreeInsert(&root, 3);
+    SplayTreeInsert(&root, 2);
+    SplayTreeInsert(&root, 1);
+    
+    SplayTreeEach(root, REVORDER, PrintNode);
 
-    root = AVLTreeInsert(root, 6);
-    root = AVLTreeInsert(root, 5);
-    root = AVLTreeInsert(root, 7);
-    root = AVLTreeInsert(root, 8);
-    root = AVLTreeInsert(root, 9);
-    root = AVLTreeInsert(root, 2);
-    root = AVLTreeInsert(root, 3);
+    SplayTreeRemove(&root, 4);
 
-    AVLTreeEach(root, REVORDER, PrintNode);
+    SplayTreeEach(root, REVORDER, PrintNode);
 
     return 0;
 }
