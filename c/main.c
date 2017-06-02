@@ -1,34 +1,39 @@
 #include <stdio.h>
 
-#include "splay_bst.h"
+#include "red_black_bst.h"
 #include "string.h"
 
-void PrintNode(SplayTreeNode* node, int depth)
+void PrintNode(RedBlackTreeNode* node, int depth)
 {
-    char out[depth + 100];
-    for (int i = 0; i < depth; i++)
+    int multiple = 2;
+    char out[depth * multiple + 100];
+    for (int i = 0; i < depth * multiple; i++)
         out[i] = ' ';
 
-    out[depth] = '\0';
+    out[depth * multiple] = '\0';
 
-    strcat(out, "%d\n");
+    strcat(out, "%d (%c)\n");
 
-    printf(out, node->value);
+    printf(out, node->value, (node->color == BLACK) ? 'b' : 'r');
 }
 
-int main() 
+int main()
 {
-    SplayTreeNode* root = SplayTreeCreate(4);
-    
-    SplayTreeInsert(&root, 3);
-    SplayTreeInsert(&root, 2);
-    SplayTreeInsert(&root, 1);
-    
-    SplayTreeEach(root, REVORDER, PrintNode);
+    RedBlackTreeNode* root = RedBlackTreeCreate(5);
 
-    SplayTreeRemove(&root, 4);
+    RedBlackTreeInsert(&root, 2);
+    RedBlackTreeInsert(&root, 7);
+    RedBlackTreeInsert(&root, 6);
+    RedBlackTreeInsert(&root, 8);
+    RedBlackTreeInsert(&root, 1);
+    RedBlackTreeInsert(&root, 3);
+    RedBlackTreeInsert(&root, 4);
+    RedBlackTreeEach(root, REVORDER, PrintNode);
 
-    SplayTreeEach(root, REVORDER, PrintNode);
+    printf("\n");
+
+    RedBlackTreeRemove(&root, 2);
+    RedBlackTreeEach(root, REVORDER, PrintNode);
 
     return 0;
 }
